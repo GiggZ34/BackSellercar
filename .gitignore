@@ -4,6 +4,9 @@ __pycache__/
 *$py.class
 .idea
 
+# migrations
+app/migrations/
+
 # C extensions
 *.so
 
