@@ -3,8 +3,9 @@ from app.models.customer import Customer
 
 from app.serializers import CustomerSerializer
 
-class CustomerViewSet (
-GenericViewSet,
+
+class CustomerViewSet(
+    GenericViewSet,
     mixins.ListModelMixin,
     mixins.RetrieveModelMixin,
     mixins.CreateModelMixin,

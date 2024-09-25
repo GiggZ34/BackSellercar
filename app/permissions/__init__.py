@@ -9,5 +9,5 @@ __all__ = [
     "CustomerPermission",
     "OptionPermission",
     "SellerPermission",
-    "RelationSellPermission"
+    "RelationSellPermission",
 ]

@@ -4,7 +4,7 @@ from app.models.option import Option
 from app.serializers import OptionSerializer
 
 
-class OptionViewSet (
+class OptionViewSet(
     GenericViewSet,
     mixins.ListModelMixin,
     mixins.RetrieveModelMixin,
