@@ -1,11 +1,11 @@
 from rest_framework.viewsets import GenericViewSet, mixins
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from .models import CarModel
+from app.models import CarModel
 
-from .serializers import CartModelSerializer
+from app.serializers import CartModelSerializer
 
 
-class CarViewSet(
+class CarModelViewSet(
     GenericViewSet,
     mixins.ListModelMixin,
     mixins.RetrieveModelMixin,
