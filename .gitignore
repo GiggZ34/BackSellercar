@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 .idea
+.ruff_cache
 
 # migrations
 app/migrations/
