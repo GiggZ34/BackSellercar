@@ -1,0 +1,41 @@
+- model: app.option
+  pk: 1
+  fields:
+    model:
+    title: "Peinture métallisée"
+    price: 600
+
+- model: app.option
+  pk: 2
+  fields:
+    model: 1
+    title: "Écran 28\""
+    price: 600
+
+- model: app.option
+  pk: 3
+  fields:
+    model:
+    title: "Boîte automatique"
+    price: 2300
+
+- model: app.option
+  pk: 4
+  fields:
+    model: 2
+    title: "Toit panaramique"
+    price: 800
+
+- model: app.option
+  pk: 5
+  fields:
+    model: 4
+    title: "Vitre blindé"
+    price: 4200
+
+- model: app.option
+  pk: 6
+  fields:
+    model: 3
+    title: "Toit panaramique"
+    price: 800

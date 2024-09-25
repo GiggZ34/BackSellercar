@@ -1,0 +1,23 @@
+- model: app.relationsell
+  pk: 1
+  fields:
+    seller: 1
+    carmodel: 1
+    customer: 1
+    options: [3, 1]
+
+- model: app.relationsell
+  pk: 1
+  fields:
+    seller: 1
+    carmodel: 4
+    customer: 1
+    options: []
+
+- model: app.relationsell
+  pk: 1
+  fields:
+    seller: 2
+    carmodel: 2
+    customer: 2
+    options: [4, 6]

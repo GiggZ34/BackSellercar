@@ -1,0 +1,23 @@
+- model: app.carmodel
+  pk: 1
+  fields:
+    model: "Model S"
+    price: 92990
+
+- model: app.carmodel
+  pk: 2
+  fields:
+    model: "Model 3"
+    price: 41490
+
+- model: app.carmodel
+  pk: 3
+  fields:
+    model: "Model Y"
+    price: 46990
+
+- model: app.carmodel
+  pk: 4
+  fields:
+    model: "Cybertruck"
+    price: 140740

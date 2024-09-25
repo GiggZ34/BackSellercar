@@ -1,0 +1,14 @@
+- model: app.concession
+  pk: 1
+  fields:
+    zip: 75000
+
+- model: app.concession
+  pk: 2
+  fields:
+    zip: 34000
+
+- model: app.concession
+  pk: 3
+  fields:
+    zip: 69000

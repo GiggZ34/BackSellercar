@@ -1,0 +1,65 @@
+- model: app.seller
+  pk: 1
+  fields:
+    first_name: "Geoffroy"
+    last_name: "Denledo"
+    username: "geoffroy.denledo@tesla.com"
+    email: "geoffroy.denledo@tesla.com"
+    password: "pbkdf2_sha256$720000$3RGbmzPHfHHUinSbZh5cmR$RhmMhr380kx2eNYmVoRETg/i9ftBpNGzTQBRJpQK+uQ="
+    roles: "OWNER"
+    concession: 1
+
+- model: app.seller
+  pk: 2
+  fields:
+    first_name: "Vincent"
+    last_name: "Times"
+    username: "vincent.times@tesla.com"
+    email: "vincent.times@tesla.com"
+    password: "pbkdf2_sha256$720000$3RGbmzPHfHHUinSbZh5cmR$RhmMhr380kx2eNYmVoRETg/i9ftBpNGzTQBRJpQK+uQ="
+    roles: "STANDARD"
+    concession: 1
+
+- model: app.seller
+  pk: 3
+  fields:
+    first_name: "Abel"
+    last_name: "Auboisdorman"
+    username: "abel.auboisdorman@tesla.com"
+    email: "abel.auboisdorman@tesla.com"
+    password: "pbkdf2_sha256$720000$3RGbmzPHfHHUinSbZh5cmR$RhmMhr380kx2eNYmVoRETg/i9ftBpNGzTQBRJpQK+uQ="
+    roles: "STANDARD"
+    concession: 1
+
+- model: app.seller
+  pk: 4
+  fields:
+    first_name: "Brice"
+    last_name: "Glace"
+    username: "brice.glace@tesla.com"
+    email: "brice.glace@tesla.com"
+    password: "pbkdf2_sha256$720000$3RGbmzPHfHHUinSbZh5cmR$RhmMhr380kx2eNYmVoRETg/i9ftBpNGzTQBRJpQK+uQ="
+    roles: "OWNER"
+    concession: 2
+
+- model: app.seller
+  pk: 5
+  fields:
+    first_name: "Gérard"
+    last_name: "Issime"
+    username: "gerard.issime@tesla.com"
+    email: "gerard.issime@tesla.com"
+    password: "pbkdf2_sha256$720000$3RGbmzPHfHHUinSbZh5cmR$RhmMhr380kx2eNYmVoRETg/i9ftBpNGzTQBRJpQK+uQ="
+    roles: "STANDARD"
+    concession: 2
+
+- model: app.seller
+  pk: 6
+  fields:
+    first_name: "Yves"
+    last_name: "Vapabien"
+    username: "yves.vapabien@tesla.com"
+    email: "yves.vapabien@tesla.com"
+    password: "pbkdf2_sha256$720000$3RGbmzPHfHHUinSbZh5cmR$RhmMhr380kx2eNYmVoRETg/i9ftBpNGzTQBRJpQK+uQ="
+    roles: "OWNER"
+    concession: 3

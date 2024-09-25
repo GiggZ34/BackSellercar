@@ -1,0 +1,34 @@
+- model: app.customer
+  pk: 1
+  fields:
+    first_name: "Ochon"
+    last_name: "Paul"
+    birthday: "1973-07-23"
+
+- model: app.customer
+  pk: 2
+  fields:
+    first_name: "Houtan"
+    last_name: "Laurent"
+    birthday: "1980-02-14"
+
+- model: app.customer
+  pk: 3
+  fields:
+    first_name: "Mentation"
+    last_name: "Ali"
+    birthday: "1989-08-24"
+
+- model: app.customer
+  pk: 4
+  fields:
+    first_name: "Térieur"
+    last_name: "Alex"
+    birthday: "1997-03-01"
+
+- model: app.customer
+  pk: 5
+  fields:
+    first_name: "Oirdenmacave"
+    last_name: "Yassine"
+    birthday: "2005-03-09"
