@@ -20,7 +20,7 @@ services:
     env_file:
       - .env
     ports:
-      - "5433:${POSTGRES_PORT}"
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
 
 networks:
   mynetwork:

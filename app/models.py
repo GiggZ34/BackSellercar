@@ -8,9 +8,12 @@ class Concession(models.Model):
 
 
 class RelationSell(models.Model):
-    seller = models.ForeignKey("Seller", on_delete=models.CASCADE, related_name="relations_sells", db_constraint=True)
-    carmodel = models.ForeignKey("CarModel", on_delete=models.CASCADE, related_name="relations_sells", db_constraint=True)
-    customer = models.ForeignKey("Customer", on_delete=models.CASCADE, related_name="relations_sells", db_constraint=True)
+    seller = models.ForeignKey(
+        "Seller", on_delete=models.CASCADE, related_name="relations_sells", db_constraint=True)
+    carmodel = models.ForeignKey(
+        "CarModel", on_delete=models.CASCADE, related_name="relations_sells", db_constraint=True)
+    customer = models.ForeignKey(
+        "Customer", on_delete=models.CASCADE, related_name="relations_sells", db_constraint=True)
     quantity = models.IntegerField(default=1)
 
 

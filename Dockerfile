@@ -8,11 +8,7 @@ RUN apt update && apt -y install git zsh curl
 
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-RUN apt-get update && apt-get -y install libpq-dev gcc
-
 RUN pip install --no-cache-dir -r /requirements.txt
-
-RUN pip install drf-spectacular --upgrade
 
 EXPOSE ${PORT}
 
