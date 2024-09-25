@@ -1,3 +1,4 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from app.constantes import SellerRoles
 
@@ -19,18 +20,14 @@ class RelationSell(models.Model):
     options = models.ManyToManyField("Option", related_name="relations_sells")
 
 
-class Seller(models.Model):
+class Seller(AbstractUser):
     roles = models.CharField(choices=SellerRoles.choices, max_length=30)
     concession = models.ForeignKey("Concession", on_delete=models.CASCADE)
 
 
 class CarModel(models.Model):
     model = models.CharField(max_length=200)
-    price = models.IntegerField(default=0)
-    sell = models.BooleanField(default=False)
-    concession = models.ForeignKey(
-        "Concession", on_delete=models.CASCADE, related_name="Cars_models"
-    )
+    price = models.IntegerField()
 
 
 class Customer(models.Model):

@@ -90,6 +90,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = "app.Seller"
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -142,4 +143,5 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "Le beau swagger",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
+    "COMPONENT_SPLIT_REQUEST": True,
 }
