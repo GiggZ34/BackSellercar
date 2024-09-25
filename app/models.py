@@ -8,14 +8,15 @@ class Concession(models.Model):
 
 class RelationSell(models.Model):
     seller = models.ForeignKey(
-        "Seller", on_delete=models.CASCADE, related_name="relations_sells")
-    carmodel = models.ForeignKey(
-        "CarModel", on_delete=models.CASCADE, related_name="relations_sells")
-    customer = models.ForeignKey(
-        "Customer", on_delete=models.CASCADE, related_name="relations_sells")
-    options = models.ManyToManyField(
-        "Option", related_name="relations_sells"
+        "Seller", on_delete=models.CASCADE, related_name="relations_sells"
     )
+    carmodel = models.ForeignKey(
+        "CarModel", on_delete=models.CASCADE, related_name="relations_sells"
+    )
+    customer = models.ForeignKey(
+        "Customer", on_delete=models.CASCADE, related_name="relations_sells"
+    )
+    options = models.ManyToManyField("Option", related_name="relations_sells")
 
 
 class Seller(models.Model):
@@ -27,7 +28,9 @@ class CarModel(models.Model):
     model = models.CharField(max_length=200)
     price = models.IntegerField(default=0)
     sell = models.BooleanField(default=False)
-    concession = models.ForeignKey("Concession", on_delete=models.CASCADE, related_name="Cars_models")
+    concession = models.ForeignKey(
+        "Concession", on_delete=models.CASCADE, related_name="Cars_models"
+    )
 
 
 class Customer(models.Model):
@@ -35,7 +38,8 @@ class Customer(models.Model):
 
 
 class Option(models.Model):
-    model = models.ForeignKey("CarModel", on_delete=models.CASCADE, related_name="Options")
+    model = models.ForeignKey(
+        "CarModel", on_delete=models.CASCADE, related_name="Options"
+    )
     title = models.CharField(max_length=200)
     price = models.IntegerField(default=0)
-

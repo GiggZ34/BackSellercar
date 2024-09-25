@@ -5,62 +5,159 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Concession',
+            name="Concession",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('zip', models.IntegerField(default=0)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("zip", models.IntegerField(default=0)),
             ],
         ),
         migrations.CreateModel(
-            name='Customer',
+            name="Customer",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('Customer_name', models.CharField(max_length=200)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("Customer_name", models.CharField(max_length=200)),
             ],
         ),
         migrations.CreateModel(
-            name='CarModel',
+            name="CarModel",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('model', models.CharField(max_length=200)),
-                ('price', models.IntegerField(default=0)),
-                ('sell', models.BooleanField(default=False)),
-                ('concession', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='Cars_models', to='app.concession')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("model", models.CharField(max_length=200)),
+                ("price", models.IntegerField(default=0)),
+                ("sell", models.BooleanField(default=False)),
+                (
+                    "concession",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="Cars_models",
+                        to="app.concession",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Option',
+            name="Option",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200)),
-                ('price', models.IntegerField(default=0)),
-                ('model', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='Options', to='app.carmodel')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=200)),
+                ("price", models.IntegerField(default=0)),
+                (
+                    "model",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="Options",
+                        to="app.carmodel",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Seller',
+            name="Seller",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('roles', models.CharField(choices=[('STANDARD', 'Standard'), ('OWNER', 'Owner')], max_length=30)),
-                ('concession', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.concession')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "roles",
+                    models.CharField(
+                        choices=[("STANDARD", "Standard"), ("OWNER", "Owner")],
+                        max_length=30,
+                    ),
+                ),
+                (
+                    "concession",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="app.concession"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='RelationSell',
+            name="RelationSell",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('carmodel', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='relations_sells', to='app.carmodel')),
-                ('customer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='relations_sells', to='app.customer')),
-                ('options', models.ManyToManyField(related_name='relations_sells', to='app.option')),
-                ('seller', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='relations_sells', to='app.seller')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "carmodel",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="relations_sells",
+                        to="app.carmodel",
+                    ),
+                ),
+                (
+                    "customer",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="relations_sells",
+                        to="app.customer",
+                    ),
+                ),
+                (
+                    "options",
+                    models.ManyToManyField(
+                        related_name="relations_sells", to="app.option"
+                    ),
+                ),
+                (
+                    "seller",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="relations_sells",
+                        to="app.seller",
+                    ),
+                ),
             ],
         ),
     ]
