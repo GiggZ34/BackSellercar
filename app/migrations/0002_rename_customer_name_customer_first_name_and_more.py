@@ -4,26 +4,25 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('app', '0001_initial'),
+        ("app", "0001_initial"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='customer',
-            old_name='Customer_name',
-            new_name='first_name',
+            model_name="customer",
+            old_name="Customer_name",
+            new_name="first_name",
         ),
         migrations.AddField(
-            model_name='customer',
-            name='birthday',
+            model_name="customer",
+            name="birthday",
             field=models.DateField(),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='customer',
-            name='last_name',
+            model_name="customer",
+            name="last_name",
             field=models.CharField(max_length=200),
             preserve_default=False,
         ),
