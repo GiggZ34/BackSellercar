@@ -22,7 +22,5 @@ services:
     ports:
       - "${POSTGRES_PORT}:${POSTGRES_PORT}"
 
-networks:
-  mynetwork:
 volumes:
   pg-data:
