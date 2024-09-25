@@ -1,5 +1,4 @@
 from django.db import models
-
 from app.constantes import SellerRoles
 
 
@@ -17,6 +16,7 @@ class RelationSell(models.Model):
     options = models.ManyToManyField(
         "Option", related_name="relations_sells"
     )
+
 
 class Seller(models.Model):
     roles = models.CharField(choices=SellerRoles.choices, max_length=30)
