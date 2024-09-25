@@ -1,10 +1,9 @@
 from .car_model import CarModelPermission
-from .relation_sell_model import RelationSellPermission
-from .seller_model import SellerPermission
-
+from .customer import CustomerPermission
+from .option import OptionPermission
 
 __all__ = [
     "CarModelPermission",
-    "RelationSellPermission",
-    "SellerPermission",
+    "CustomerPermission",
+    "OptionPermission"
 ]
