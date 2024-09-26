@@ -63,3 +63,14 @@
     password: "pbkdf2_sha256$720000$3RGbmzPHfHHUinSbZh5cmR$RhmMhr380kx2eNYmVoRETg/i9ftBpNGzTQBRJpQK+uQ="
     roles: "OWNER"
     concession: 3
+
+- model: app.seller
+  pk: 7
+  fields:
+    first_name: "Elon"
+    last_name: "Musk"
+    username: "elon.musk@tesla.com"
+    email: "elon.musk@tesla.com"
+    password: "pbkdf2_sha256$720000$3RGbmzPHfHHUinSbZh5cmR$RhmMhr380kx2eNYmVoRETg/i9ftBpNGzTQBRJpQK+uQ="
+    roles: "ELON"
+    concession: 
