@@ -6,6 +6,7 @@ from .views import (
     SellerModelViewSet,
     OptionViewSet,
     CustomerViewSet,
+    CustomAuthToken,
 )
 
 
@@ -18,4 +19,5 @@ router.register("option", OptionViewSet, basename="option")
 
 urlpatterns = [
     path("", include(router.urls)),
+    path("login/", CustomAuthToken.as_view())
 ]
