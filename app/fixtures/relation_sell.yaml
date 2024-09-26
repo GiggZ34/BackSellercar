@@ -7,7 +7,7 @@
     options: [3, 1]
 
 - model: app.relationsell
-  pk: 1
+  pk: 2
   fields:
     seller: 1
     carmodel: 4
@@ -15,7 +15,7 @@
     options: []
 
 - model: app.relationsell
-  pk: 1
+  pk: 3
   fields:
     seller: 2
     carmodel: 2
