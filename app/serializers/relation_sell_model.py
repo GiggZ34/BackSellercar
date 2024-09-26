@@ -15,6 +15,17 @@ class RelationSellModelSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RelationSell
-        fields = ["seller", "carmodel", "customer", "options", ]
+        fields = ["id", "seller", "carmodel", "customer", "options", ]
+
+
+class PostRelationSellModelSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = RelationSell
+        fields = ["id", "seller", "carmodel", "customer", "options", ]
+        read_only_fields = ["id", "seller"]
+        extra_kwargs = {"options": {"required": False}}
+
+
 
 

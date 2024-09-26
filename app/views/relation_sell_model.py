@@ -6,6 +6,7 @@ from app.constantes import SellerRoles
 from app.models import RelationSell, Seller
 from app.serializers import RelationSellModelSerializer
 from app.permissions import RelationSellPermission
+from app.serializers.relation_sell_model import PostRelationSellModelSerializer
 
 
 class RelationSellModelViewSet(
@@ -32,3 +33,12 @@ class RelationSellModelViewSet(
         }
 
         return query_role_mapped[user.roles]
+
+    def get_serializer_class(self):
+        if self.action == "list" or self.action == "retrieve":
+            return RelationSellModelSerializer
+
+        return PostRelationSellModelSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(seller=self.request.user)
