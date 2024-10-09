@@ -7,6 +7,8 @@ from .views import (
     OptionViewSet,
     CustomerViewSet,
     CustomAuthToken,
+    SellerSaleStatView,
+    ConcessionStatView,
 )
 
 
@@ -19,5 +21,7 @@ router.register("option", OptionViewSet, basename="option")
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("login/", CustomAuthToken.as_view())
+    path("login/", CustomAuthToken.as_view()),
+    path("stat/seller/<int:seller_id>/", SellerSaleStatView.as_view(), name="seller_stat"),
+    path("stat/concession/<int:concession_id>/", ConcessionStatView.as_view(), name="concession_stat"),
 ]
