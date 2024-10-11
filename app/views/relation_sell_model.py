@@ -22,7 +22,6 @@ class RelationSellModelViewSet(
 
     def get_queryset(self):
         user: Seller = self.request.user
-
         if user.is_anonymous:
             return RelationSell.objects.none()
 

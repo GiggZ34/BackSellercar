@@ -26,6 +26,13 @@ class PostRelationSellModelSerializer(serializers.ModelSerializer):
         read_only_fields = ["id", "seller"]
         extra_kwargs = {"options": {"required": False}}
 
+    def validate(self, attrs):
+        options = attrs.get("options", [])
+        for option in options:
+            if option.model != attrs["carmodel"]:
+                raise serializers.ValidationError("Option models do not match")
+        return super().validate(attrs)
+
 
 
 
