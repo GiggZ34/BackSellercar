@@ -1,74 +1,79 @@
-from django.db.models import Count
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
+from django.db.models import Count, OuterRef, Sum, F, Case, When, Value, FloatField, IntegerField
+from rest_framework.exceptions import PermissionDenied
+from rest_framework.viewsets import GenericViewSet, mixins
+from rest_framework import serializers
+from app.commons.db_functions import SubqueryCount
 from app.models import RelationSell, Seller
-from app.serializers import RelationSellModelSerializer
 
 
-def total_revenue_calculator(sale_of_user):
-    total = 0
+class SellerSaleStatSerializer(serializers.ModelSerializer):
+    number_sale_model = serializers.IntegerField()
+    number_sale_option = serializers.IntegerField()
+    concession = serializers.SerializerMethodField()
+    percent_sales_total = serializers.IntegerField()
+    percent_sales_concession = serializers.IntegerField()
+    avg_option_per_car = serializers.FloatField()
+    total_sales = serializers.IntegerField()
 
-    for sale in sale_of_user:
-        if len(sale["options"]) > 1:
-            for option in sale["options"]:
-                total += option["price"]
-        total += sale["carmodel"]["price"]
+    def get_concession(self, seller: Seller):
+        concession = getattr(seller, "concession")
+        return concession.zip if concession else None
 
-    return total
+    class Meta:
+        model = Seller
+        fields = [
+            "id",
+            "first_name",
+            "last_name",
+            "concession",
+            "number_sale_model",
+            "number_sale_option",
+            "percent_sales_total",
+            "percent_sales_concession",
+            "avg_option_per_car",
+            "total_sales"
+        ]
 
 
-class SellerSaleStatView(APIView):
-    def get(self, request, seller_id, *args, **kwargs):
+class SellerSaleStatViewSet(
+    GenericViewSet,
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin
+):
+    # permission_classes
+    serializer_class = SellerSaleStatSerializer
 
-        # Get data
-        info_user = Seller.objects.get(id=seller_id)
-        user_sale = RelationSell.objects.filter(seller__id=seller_id)
-        all_sale = RelationSell.objects.all()
-        user_concession_sale = RelationSell.objects.filter(seller__concession_id=info_user.concession_id)
+    def get_queryset(self):
+        user: Seller = self.request.user
 
-        best_selled_car = (
-            RelationSell.objects
-            .filter(seller__id=seller_id)
-            .values("carmodel__model")
-            .annotate(car_count=Count("carmodel"))
-            .order_by("-car_count")
-            .first()
+        if not user or user.is_anonymous:
+            raise PermissionDenied()
+
+        return Seller.objects.prefetch_related(
+            "relations_sells__options",
+            "relations_sells__carmodel"
+        ).select_related("concession").filter(concession__isnull=False).annotate(
+            number_sale_all=SubqueryCount(RelationSell.objects.all()),
+            number_sale_concession=SubqueryCount(RelationSell.objects.filter(seller__concession=OuterRef("concession")).values("id")),
+            number_sale_model=SubqueryCount(RelationSell.objects.filter(seller_id=OuterRef("id"))),
+            number_sale_option=Count("relations_sells__options"),
+            total_sales_model=Sum("relations_sells__carmodel__price"),
+            total_sales_option=Sum("relations_sells__options__price")
+        ).annotate(
+            percent_sales_total=Case(
+                When(number_sale_all__gt=0, then=(F("number_sale_model") * 100) / F("number_sale_all")),
+                default=Value(0),
+                output_field=IntegerField()
+            ),
+            percent_sales_concession=Case(
+                When(number_sale_concession__gt=0, then=(F("number_sale_model") * 100) / F("number_sale_concession")),
+                default=Value(0),
+                output_field=IntegerField()
+            ),
+            avg_option_per_car=Case(
+                When(number_sale_model__gt=0, then=F("number_sale_option")),
+                default=Value(0.0),
+                output_field=FloatField(),
+            ),
+            total_sales=F("total_sales_model") + F("total_sales_option")
         )
-
-        # Serialize data
-        serialized_user_data = RelationSellModelSerializer(user_sale, many=True).data
-        serialized_all_data = RelationSellModelSerializer(all_sale, many=True).data
-        serialized_concession_data = RelationSellModelSerializer(user_concession_sale, many=True).data
-
-        # Calcul
-        number_sale_user = len(serialized_user_data)
-        number_sale_all = len(serialized_all_data)
-        number_sale_concession = len(serialized_concession_data)
-
-        if number_sale_user <= 0:
-            stats_data = {
-                "error": "pas de vente"
-            }
-            return Response(stats_data, status=status.HTTP_200_OK)
-
-        else:
-            purcent_sale_user_total = round((number_sale_user * 100) / number_sale_all)
-            purcent_sale_user_concession = round((number_sale_user * 100) / number_sale_concession)
-
-            moy_options = sum(len(option["options"]) for option in serialized_user_data)
-
-            total_revenue = total_revenue_calculator(serialized_user_data)
-
-            stats_data = {
-                "purcent_sale_total": f'{purcent_sale_user_total}%',
-                "purcent_in_concession": f'{purcent_sale_user_concession}%',
-                "moy_option_per_car": f'{moy_options}',
-                "best_sale_car": {
-                   "model": best_selled_car["carmodel__model"],
-                   "number_selled": best_selled_car["car_count"],
-                },
-                "total_revenue": f'{total_revenue}€'
-            }
-            return Response(stats_data, status=status.HTTP_200_OK)
-
