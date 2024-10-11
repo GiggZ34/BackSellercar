@@ -33,3 +33,5 @@ class SellerModelViewSet(
 
     def get_serializer_class(self):
         return SellerModelSerializer
+
+

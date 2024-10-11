@@ -21,3 +21,27 @@
     carmodel: 2
     customer: 2
     options: [4, 6]
+
+- model: app.relationsell
+  pk: 4
+  fields:
+    seller: 1
+    carmodel: 4
+    customer: 3
+    options: [2, 5]
+
+- model: app.relationsell
+  pk: 5
+  fields:
+    seller: 4
+    carmodel: 3
+    customer: 5
+    options: [1, 4]
+
+- model: app.relationsell
+  pk: 6
+  fields:
+    seller: 3
+    carmodel: 4
+    customer: 4
+    options: [1, 3]
