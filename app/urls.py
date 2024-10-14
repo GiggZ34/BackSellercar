@@ -20,12 +20,12 @@ router.register("seller", SellerModelViewSet, basename="seller")
 router.register("customer", CustomerViewSet, basename="customer")
 router.register("option", OptionViewSet, basename="option")
 
-# test
+# stat
 router.register("stat_seller", SellerSaleStatViewSet, basename="stat_seller")
 router.register("stat_concession", ConcessionStatViewSet, basename="stat_concession")
 
 urlpatterns = [
     path("", include(router.urls)),
     path("login/", CustomAuthToken.as_view()),
-    path("stat_general/", GeneralStatView.as_view(), name="stat_general"),
+    path("stat_general/", GeneralStatView.as_view())
 ]
