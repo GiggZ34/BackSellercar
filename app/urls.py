@@ -27,5 +27,5 @@ router.register("stat_concession", ConcessionStatViewSet, basename="stat_concess
 urlpatterns = [
     path("", include(router.urls)),
     path("login/", CustomAuthToken.as_view()),
-    path("stat/general/", GeneralStatView.as_view(), name="general_stat"),
+    path("stat_general/", GeneralStatView.as_view(), name="stat_general"),
 ]

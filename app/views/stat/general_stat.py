@@ -4,13 +4,14 @@ from rest_framework.response import Response
 from rest_framework import status
 from app.commons.db_functions import SubquerySum
 from app.models import RelationSell, Concession
+from rest_framework import serializers
 
 
 class GeneralStatView(APIView):
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
 
         # Request
-        top_selled_car = (
+        most_selled_car = (
             RelationSell.objects
             .all()
             .values("carmodel__model")
@@ -28,22 +29,24 @@ class GeneralStatView(APIView):
             .first()
         )
 
-        # total_sale_price = Concession.objects.annotate(
-        #     number_sale_all_price=SubquerySum(RelationSell.objects.values(value=F("carmodel__price"))) + SubquerySum(
-        #         RelationSell.objects.values(value=F("options__price"))),
-        # )
+        total_sale_price = Concession.objects.annotate(
+            number_sale_all_price=SubquerySum(RelationSell.objects.values(value=F("carmodel__price"))) + SubquerySum(
+            RelationSell.objects.values(value=F("options__price"))),
+        )
+
+
 
         # Response
         stats_data = {
-            "top_selled_car": {
-                "model": top_selled_car["carmodel__model"],
-                "number": top_selled_car["car_count"],
+            "most_selled_car": {
+                "model": most_selled_car["carmodel__model"],
+                "number": most_selled_car["car_count"],
                 },
             "top_seller": {
                 "name": f'{top_seller["seller__first_name"]} {top_seller["seller__last_name"]}',
                 "number_of_sales": top_seller["car_count"],
             },
-            # "total_sale_price": total_sale_price,
+            "total_sale_price": total_sale_price,
 
         }
 
