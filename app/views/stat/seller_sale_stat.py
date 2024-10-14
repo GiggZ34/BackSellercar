@@ -71,7 +71,7 @@ class SellerSaleStatViewSet(
                 output_field=IntegerField()
             ),
             avg_option_per_car=Case(
-                When(number_sale_model__gt=0, then=F("number_sale_option")),
+                When(number_sale_model__gt=0, then=F("number_sale_option") / F("number_sale_model")),
                 default=Value(0.0),
                 output_field=FloatField(),
             ),

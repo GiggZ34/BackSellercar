@@ -43,7 +43,7 @@ class ConcessionStatViewSet(GenericViewSet,
             total_selled_car=Count("sellers__relations_sells"),
             total_selled_model_price=Sum("sellers__relations_sells__carmodel__price"),
             total_selled_options_price=SubquerySum(
-                RelationSell.objects.filter(seller_id=OuterRef("id")).values(value=F("options__price"))),
+                RelationSell.objects.filter(seller__concession_id=OuterRef("id")).values(value=F("options__price"))),
             number_sale_all_price=SubquerySum(RelationSell.objects.values(value=F("carmodel__price"))) + SubquerySum(
                 RelationSell.objects.values(value=F("options__price"))),
         ).annotate(
