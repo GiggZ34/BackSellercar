@@ -12,10 +12,12 @@ class RelationSellModelSerializer(serializers.ModelSerializer):
     carmodel = CarModelSerializer()
     customer = CustomerSerializer()
     options = OptionSerializer(many=True)
+    total_price = serializers.FloatField(read_only=True)
+    total_options_price = serializers.FloatField(read_only=True)
 
     class Meta:
         model = RelationSell
-        fields = ["id", "seller", "carmodel", "customer", "options", ]
+        fields = ["id", "seller", "carmodel", "customer", "options", "total_price", "total_options_price"]
 
 
 class PostRelationSellModelSerializer(serializers.ModelSerializer):

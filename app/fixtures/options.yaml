@@ -23,7 +23,7 @@
   pk: 4
   fields:
     model: 2
-    title: "Toit panaramique"
+    title: "Toit panoramique"
     price: 800
 
 - model: app.option
@@ -32,10 +32,3 @@
     model: 4
     title: "Vitre blindé"
     price: 4200
-
-- model: app.option
-  pk: 6
-  fields:
-    model: 3
-    title: "Toit panaramique"
-    price: 800

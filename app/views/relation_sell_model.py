@@ -1,6 +1,7 @@
+from django.db.models import Sum, Value, F
 from rest_framework.viewsets import GenericViewSet, mixins
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-
+from django.db.models.functions import Coalesce
 import app.models
 from app.constantes import SellerRoles
 from app.models import RelationSell, Seller
@@ -31,7 +32,17 @@ class RelationSellModelViewSet(
             SellerRoles.STANDARD: RelationSell.objects.filter(seller=user)
         }
 
-        return query_role_mapped[user.roles]
+        queryset = (
+            query_role_mapped[user.roles]
+            .annotate(total_price=F("carmodel__price") + Coalesce(Sum("options__price"), Value(0)))
+            .annotate(total_options_price=Coalesce(Sum("options__price"), Value(0)))
+        )
+
+        ordering = self.request.query_params.get('ordering')
+        if ordering:
+            queryset = queryset.order_by(*ordering.split(','))
+
+        return queryset
 
     def get_serializer_class(self):
         if self.action == "list" or self.action == "retrieve":
