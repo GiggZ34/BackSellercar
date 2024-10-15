@@ -29,7 +29,13 @@ class SellerModelViewSet(
             SellerRoles.STANDARD: Seller.objects.filter(concession_id=user.concession),
         }
 
-        return query_role_mapped[user.roles]
+        queryset = query_role_mapped[user.roles]
+
+        ordering = self.request.query_params.get('ordering')
+        if ordering:
+            queryset = queryset.order_by(*ordering.split(','))
+
+        return queryset
 
     def get_serializer_class(self):
         return SellerModelSerializer
