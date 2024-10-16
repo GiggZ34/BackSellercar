@@ -1,13 +1,31 @@
 from django.db.models import Sum, Value, F
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.viewsets import GenericViewSet, mixins
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django.db.models.functions import Coalesce
-import app.models
 from app.constantes import SellerRoles
 from app.models import RelationSell, Seller
 from app.serializers import RelationSellModelSerializer
 from app.permissions import RelationSellPermission
 from app.serializers.relation_sell_model import PostRelationSellModelSerializer
+from rest_framework.response import Response
+import math
+
+
+class CustomPagination(PageNumberPagination):
+    page_size = 4
+
+    def get_paginated_response(self, data):
+        total_items = self.page.paginator.count
+        total_pages = math.ceil(total_items / self.page_size)
+
+        return Response({
+            'count': total_items,
+            'total_pages': total_pages,
+            'next': self.get_next_link(),
+            'previous': self.get_previous_link(),
+            'results': data
+        })
 
 
 class RelationSellModelViewSet(
@@ -20,6 +38,8 @@ class RelationSellModelViewSet(
 ):
     serializer_class = RelationSellModelSerializer
     permission_classes = [RelationSellPermission]
+    pagination_class = CustomPagination
+    filterset_fields = ('customer_id', 'seller_id')
 
     def get_queryset(self):
         user: Seller = self.request.user

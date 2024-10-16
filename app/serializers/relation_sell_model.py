@@ -31,7 +31,7 @@ class PostRelationSellModelSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         options = attrs.get("options", [])
         for option in options:
-            if option.model != attrs["carmodel"]:
+            if option.model != attrs["carmodel"] and option.model is not None:
                 raise serializers.ValidationError("Option models do not match")
         return super().validate(attrs)
 
